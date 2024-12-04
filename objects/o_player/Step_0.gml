@@ -12,8 +12,22 @@ var left = keyboard_check(vk_left) || keyboard_check(ord("A"));
 var right = keyboard_check(vk_right) || keyboard_check(ord("D"));
 
 
-// Calculate Movements
+// ******Calculating Movements******
 hsp += (right - left) * walk_spd;
+
+// Drag
+hsp = lerp(hsp, 0, drag);
+
+// Stop
+if abs(hsp) <= 0.1 hsp = 0;
+
+// Face correct way
+if hsp != 0 facing = sign(hsp);
+
+// Limit Speed
+hsp = min(abs(hsp), max_hsp) * facing;
+
+// **********************************
 
 // Apply Movements
 
